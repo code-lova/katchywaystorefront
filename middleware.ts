@@ -2,29 +2,25 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
-// Define routes that should be protected
-const protectedRoutes = ['/admin', '/user'];
-
 export async function middleware(req: NextRequest) {
   // Get the token from the request
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  // Check if the user is trying to access a protected route
-  if (protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
-    // If no token is present, redirect to the login page
-    if (!token) {
-      return NextResponse.redirect(new URL('/sign-in', req.url));
+  if (!token) {
+    // If no token is present and the user is trying to access a protected route, redirect to the login page
+    if (req.nextUrl.pathname.startsWith('/admin') || req.nextUrl.pathname.startsWith('/user')) {
+      return NextResponse.redirect(new URL('/sign-in', req.nextUrl.origin));
     }
-
-    // If the user is not an admin and trying to access admin routes, redirect to home
+  } else {
+    // If the user is not an admin and trying to access admin routes, redirect to an error page
     if (req.nextUrl.pathname.startsWith('/admin') && token.role !== 'admin') {
-      return NextResponse.redirect(new URL('/error', req.url));
+      return NextResponse.redirect(new URL('/error', req.nextUrl.origin));
     }
-  }
 
-  // Prevent logged-in users from accessing the login or register pages
-  if (token && (req.nextUrl.pathname === '/sign-in' || req.nextUrl.pathname === '/sign-up')) {
-    return NextResponse.redirect(new URL('/', req.url));
+    // Prevent logged-in users from accessing the login or register pages
+    if (req.nextUrl.pathname === '/sign-in' || req.nextUrl.pathname === '/sign-up') {
+      return NextResponse.redirect(new URL('/', req.nextUrl.origin));
+    }
   }
 
   return NextResponse.next();

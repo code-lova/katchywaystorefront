@@ -8,7 +8,7 @@ import bcrypt from 'bcryptjs';
 // Ensure the database connection is established
 connectToDB();
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',

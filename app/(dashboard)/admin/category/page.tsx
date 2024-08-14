@@ -2,7 +2,15 @@ import React from 'react'
 
 const Category = () => {
   return (
-    <div>Category page</div>
+    <section className=''>
+      <h1 className="text-3xl font-bold mb-4 uppercase text-heading-color">Category</h1>
+      <p className='text-color'>Add, Edit/Update Product Category!</p>
+
+
+
+
+
+    </section>
   )
 }
 

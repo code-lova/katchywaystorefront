@@ -25,7 +25,7 @@ main{
 .admin{
   background-color: rgb(39, 39, 44);
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 
@@ -101,7 +101,7 @@ main{
   }
 
   .admin-nav-hover{
-    @apply py-1 px-4 text-color rounded transition duration-200 hover:bg-gray-700 hover:text-white flex flex-row items-center space-x-1;
+    @apply py-2 px-4 text-color rounded transition duration-200 hover:bg-gray-700 hover:text-white flex flex-row items-center space-x-1;
   }
 
   

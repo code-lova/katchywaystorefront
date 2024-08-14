@@ -18,22 +18,40 @@ const Navbar = () => {
   return (
     <div>
         <div className={`fixed top-0 left-0 w-64 card-color shadow-shadow-1 text-white h-full p-4 transition-transform transform ${toggle ? "translate-x-0" : "-translate-x-full"} xl:translate-x-0`}>
-            <div className='flex justify-between items-center my-2'>
+            <div className='flex flex-col my-2'>
+               <div className='flex flex-1'>
                 <Image 
-                    src='/logo.webp'
-                    width={70}
-                    height={30}
-                    className='hidden xl:flex object-contain'
-                    alt='logo'
-                />
-                <p className="text-white-400 text-[18px] font-bold cursor-pointer sm:block hidden">Administrator</p>
+                        src='/logo.webp'
+                        width={90}
+                        height={30}
+                        className='hidden xl:flex object-contain'
+                        alt='logo'
+                    />
+               </div>
+                <div className='flex flex-col justify-center items-center mt-20 xl:mt-6'>
+                    <Image
+                        src="/icons/profile.svg"
+                        width={60}
+                        height={60}
+                        className=''
+                        alt='admin logo'
+                    />
+
+                    {session && session.user && (
+                        <p className="text-white-400 text-base font-thin cursor-pointer">
+                            {session.user.name}
+                        </p>
+                    )}
+                </div>
+               
+                
             </div>
 
-            <nav className="mt-28 xl:mt-16">
+            <nav className="mt-12 xl:mt-8">
             {adminNavLinks.map((navItem) => {
                 const IconComponent = navItem.icon
                 return (
-                <div key={navItem.id} className='admin-nav-hover mt-8'>
+                <div key={navItem.id} className='admin-nav-hover mt-4'>
                     <Image 
                         src={IconComponent}
                         width={30}

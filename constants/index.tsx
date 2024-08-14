@@ -84,7 +84,7 @@ export const adminNavLinks = [
         id: 'dashboard',
         name: 'Dashboard',
         icon: '/icons/dashboard.svg',
-        link: '/admin'
+        link: '/admin/dashboard'
     },
     {
         id: 'category',
@@ -103,7 +103,7 @@ export const adminNavLinks = [
     {
         id: 'users',
         name: 'Users',
-        icon: '/icons/product.svg',
+        icon: '/icons/users.svg',
         link: '/admin/users'
 
     },

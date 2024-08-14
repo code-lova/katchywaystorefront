@@ -36,7 +36,7 @@ const authOptions: AuthOptions = {
         }
 
         // If everything is valid, return the user object
-        return { id: user._id.toString(), email: user.email, role: user.role };
+        return { id: user._id.toString(), email: user.email, name: user.name, role: user.role };
       },
     }),
   ],

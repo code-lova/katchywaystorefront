@@ -32,7 +32,7 @@ const Login = () => {
         // Redirect based on the user's role
         const userRole = await getUserRole(); // Custom function to fetch the user's role
         if (userRole === 'admin') {
-          router.push('/admin');
+          router.push('/admin/dashboard');
         } else {
           router.push('/');
         }

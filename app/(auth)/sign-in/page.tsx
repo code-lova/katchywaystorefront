@@ -33,7 +33,7 @@ const Login = () => {
         const userRole = await getUserRole(); // Custom function to fetch the user's role
         if (userRole === 'admin') {
           router.push('/admin');
-        } else if (userRole === 'user') {
+        } else {
           router.push('/');
         }
       }

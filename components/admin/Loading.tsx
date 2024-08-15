@@ -19,7 +19,7 @@ const Loading = () => {
           <stop offset="1" stopColor="#FF156D" stopOpacity="0"></stop>
         </radialGradient>
         <circle
-          transformOrigin="center"
+          transform-origin="center"
           fill="none"
           stroke="url(#a9)"
           strokeWidth="22"
@@ -42,7 +42,7 @@ const Loading = () => {
           ></animateTransform>
         </circle>
         <circle
-          transformOrigin="center"
+          transform-origin="center"
           fill="none"
           opacity=".2"
           stroke="#FF156D"

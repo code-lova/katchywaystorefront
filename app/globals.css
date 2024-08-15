@@ -14,7 +14,6 @@ html,
 body,
 :root{
   height: 100%;
-  overflow-x: hidden;
 }
 
 main{
@@ -67,6 +66,10 @@ main{
     @apply text-gray-600;
   }
 
+  .card-color{
+    @apply bg-[#212428];
+  }
+
  
   .padding-x {
     @apply sm:px-16 px-8;
@@ -104,6 +107,15 @@ main{
     @apply py-2 px-4 text-color rounded transition duration-200 hover:bg-gray-700 hover:text-white flex flex-row items-center space-x-1;
   }
 
+  .admin-small-btn{
+    @apply p-4 w-auto rounded-lg cursor-pointer h-auto card-color shadow-shadow-1 text-coral-red tracking-wider;
+  }
+
+
+
+  .form-label{
+    @apply p-4 w-full h-14 text-color shadow-inner-shadow bg-neutral-900 outline-none mt-2 rounded-lg focus-within:border-2 border-red-500;
+  }
   
 
 }

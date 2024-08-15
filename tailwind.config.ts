@@ -37,6 +37,7 @@ const config: Config = {
         "white-400": "rgba(255, 255, 255, 0.80)",
         "custom-green": "#1aa852",
         "herobg-gray": "#f5f5f5",
+        "coral-red": "#d4374c",
       },
       boxShadow: {
         '3xl': '0 10px 40px rgba(0, 0, 0, 0.1)',

@@ -72,7 +72,7 @@ const Category = () => {
 
         {categories.length > 0 ? categories.map((catItem) => (
 
-          <div id='catcard' className="mt-10 card-color p-6 w-[300px] shadow-shadow-1 rounded-lg border-1 border-black">
+          <div key={catItem._id} id='catcard' className="mt-10 card-color p-6 w-[300px] shadow-shadow-1 rounded-lg border-1 border-black">
             {catItem.name === "Women" ? (
 
               <Image

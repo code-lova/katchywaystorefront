@@ -1,7 +1,8 @@
 'use client'
 import React, {useState, useEffect, ChangeEvent, FormEvent } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 interface CategoryInput {
   name: string,
@@ -19,19 +20,46 @@ interface Errors {
 const EditCategory = () => {
 
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const categoryID = searchParams.get('_id');
+  const params = useParams();
+  const { id } = params;
+
+  //console.log("category", id)
+
+
   const [categoryInput, setCategoryInput] = useState<CategoryInput>({
     name: "",
     slug: "",
     status: "",
   });
 
-  console.log(categoryID)
 
   const [errors, setErrors] = useState<Errors>({});
 
   const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+    if(id){
+      const fetchCategory = async () => {
+        try{
+
+          const response = await fetch(`/api/category/categories/${id}`)
+          if(!response.ok){
+            throw new Error('Failed to fetch category');
+          }
+          const data = await response.json();
+          setCategoryInput(data);
+        }catch(error){
+          console.error('Error fetching categories:', error);
+          toast.error('Internal server error');
+        }
+      };
+
+      fetchCategory();
+    }
+    
+  }, [id])
+  
 
 
     // Handle input change and validate
@@ -53,18 +81,48 @@ const EditCategory = () => {
   };
 
 
-  useEffect(() => {
-    const getCategory = async () => {
+  const updateCategory = async (e: FormEvent<HTMLFormElement>) =>{
+      e.preventDefault()
+     // Validate before submitting
+     const validationErrors: Errors = {};
+     if (!categoryInput.name.trim()) {
+       validationErrors.name = "Category name is required.";
+     }
+     if (!categoryInput.slug.trim()) {
+       validationErrors.slug = "Slug is required.";
+     }
+     if (!categoryInput.status) {
+       validationErrors.status = "Please select a status.";
+     }
+ 
+     if (Object.keys(validationErrors).length > 0) {
+       setErrors(validationErrors);
+       return;
+     }
 
-    }
-  
-    
-  }, [])
-  
-
-
-
-  const updateCategory = () =>{
+     setLoading(true);
+      try {
+        // Your API call here
+        const response = await fetch(`/api/category/categories/${id}`, {
+            method: 'PUT', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(categoryInput) }
+        );
+        const data = await response.json(); // Parse JSON response
+        // if response is successful
+        if(response.ok){
+            //router.push('/admin/category')
+            toast.success(data.message);
+        }else{
+            toast.error(data.error || 'Process failed. Please try again.');
+        }
+      } catch (error) {
+        toast.error("Error updating category.");
+      } finally {
+        setLoading(false);
+      }
 
   }
 
@@ -126,7 +184,7 @@ const EditCategory = () => {
 
             <div className='mt-10 md:flex justify-center'>
                 <button type="submit" disabled={loading} className='my-8 w-full lg:w-[400px] md:w-[400px] rounded-lg cursor-pointer h-16 card-color shadow-shadow-1 text-coral-red tracking-wider bg-gradient-to-r from-neutral-900 hover:transitioning'>
-                {loading ? 'Creating Category...': 'Create Category'}
+                {loading ? 'Updating Category...': 'Update Category'}
                 </button>
             </div>
             

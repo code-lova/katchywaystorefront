@@ -25,9 +25,9 @@ const Category = () => {
       try {
 
         const response = await fetch('/api/category/categories');
-
+        const data = await response.json();
+        
         if (response.ok) {
-          const data = await response.json();
           setCategories(data);
         } else {
           console.log("failed to fetch categories")

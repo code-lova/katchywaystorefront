@@ -83,7 +83,7 @@ const NewCategory = () => {
       setLoading(true);
       try {
         // Your API call here
-        const response = await fetch('/api/category/new', {
+        const response = await fetch('/api/category/categories/new', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'

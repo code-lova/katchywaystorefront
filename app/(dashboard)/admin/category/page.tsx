@@ -1,5 +1,5 @@
 "use client"
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, FormEvent} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
@@ -44,8 +44,27 @@ const Category = () => {
   }, []);
 
 
-  const handleDeleteCategory = () => {
-    
+  const deleteCategory = async(e: FormEvent, categoryId: string) => {
+    const confirmDelete  = confirm("Are you sure you want to delete this category?")
+    if(!confirmDelete) return;
+
+    try {
+      const response = await fetch(`/api/category/categories/${categoryId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        toast.success('Category deleted successfully');
+        // Update state by removing the deleted category
+        setCategories(categories.filter((cat) => cat._id !== categoryId));
+      } else {
+        toast.error('Failed to delete category');
+      }
+    }catch (error) {
+      console.error('Error deleting category:', error);
+      toast.error('Internal server error');
+    }
+
   }
 
 
@@ -101,7 +120,10 @@ const Category = () => {
                 Edit
               </Link>
 
-              <button className="admin-small-btn">
+              <button 
+                className="admin-small-btn"
+                onClick={(e) => deleteCategory(e, catItem._id)}
+              >
                 Delete
               </button>
             </div>

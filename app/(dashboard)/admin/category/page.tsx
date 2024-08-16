@@ -24,7 +24,7 @@ const Category = () => {
     const fetchCategories = async () => {
       try {
 
-        const response = await fetch('/api/category/categories', { next: { revalidate: 3600 } });
+        const response = await fetch('/api/category/categories');
 
         if (response.ok) {
           const data = await response.json();
